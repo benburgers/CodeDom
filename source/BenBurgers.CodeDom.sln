@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenBurgers.CodeDom.Python", "BenBurgers.CodeDom.Python\BenBurgers.CodeDom.Python.csproj", "{9478B424-E271-4289-BFC5-D955D2D6DDB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Python", "Python", "{712E8F84-CB83-444E-840A-14FA7D7573C7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenBurgers.CodeDom.Python.Tests", "BenBurgers.CodeDom.Python.Tests\BenBurgers.CodeDom.Python.Tests.csproj", "{1D1FCFC7-B98E-487B-9F36-FC389BB766B7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenBurgers.Python", "BenBurgers.Python\BenBurgers.Python.csproj", "{BE30BC1E-CB86-436C-8DEB-96969F7D761B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4F781944-4B0C-400F-BA7D-64733EDF6DEA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenBurgers.Python.Tests", "BenBurgers.Python.Tests\BenBurgers.Python.Tests.csproj", "{326EEF69-D86D-42AF-9838-44EA76A5D64D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{053A0429-3E10-4855-A069-1854F0BD21F0}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+		..\ReleaseNotes.txt = ..\ReleaseNotes.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9478B424-E271-4289-BFC5-D955D2D6DDB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9478B424-E271-4289-BFC5-D955D2D6DDB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9478B424-E271-4289-BFC5-D955D2D6DDB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9478B424-E271-4289-BFC5-D955D2D6DDB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D1FCFC7-B98E-487B-9F36-FC389BB766B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D1FCFC7-B98E-487B-9F36-FC389BB766B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D1FCFC7-B98E-487B-9F36-FC389BB766B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D1FCFC7-B98E-487B-9F36-FC389BB766B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE30BC1E-CB86-436C-8DEB-96969F7D761B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE30BC1E-CB86-436C-8DEB-96969F7D761B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE30BC1E-CB86-436C-8DEB-96969F7D761B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE30BC1E-CB86-436C-8DEB-96969F7D761B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{326EEF69-D86D-42AF-9838-44EA76A5D64D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{326EEF69-D86D-42AF-9838-44EA76A5D64D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{326EEF69-D86D-42AF-9838-44EA76A5D64D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{326EEF69-D86D-42AF-9838-44EA76A5D64D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9478B424-E271-4289-BFC5-D955D2D6DDB3} = {712E8F84-CB83-444E-840A-14FA7D7573C7}
+		{1D1FCFC7-B98E-487B-9F36-FC389BB766B7} = {4F781944-4B0C-400F-BA7D-64733EDF6DEA}
+		{BE30BC1E-CB86-436C-8DEB-96969F7D761B} = {712E8F84-CB83-444E-840A-14FA7D7573C7}
+		{4F781944-4B0C-400F-BA7D-64733EDF6DEA} = {712E8F84-CB83-444E-840A-14FA7D7573C7}
+		{326EEF69-D86D-42AF-9838-44EA76A5D64D} = {4F781944-4B0C-400F-BA7D-64733EDF6DEA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {77BC80DC-4764-4512-8730-DC85A45F535E}
+	EndGlobalSection
+EndGlobal

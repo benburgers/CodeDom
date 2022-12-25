@@ -1,0 +1,83 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup Label="Project Settings">
+		<TargetFrameworks>net7.0</TargetFrameworks>
+		<LangVersion>latest</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<Title>Python language features</Title>
+		<Version>0.1.0</Version>
+		<Authors>benburgers</Authors>
+		<Company>Ben Burgers</Company>
+		<Product>Ben Burgers CodeDom</Product>
+		<Description>Python language features for parsing and generating Python programs.</Description>
+		<Copyright>© 2022-2023 Ben Burgers and contributors.</Copyright>
+		<PackageProjectUrl>https://github.com/users/benburgers/projects/4</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/benburgers/CodeDom</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>Python;Parser;Generator;language</PackageTags>
+		<PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageReleaseNotes>Imported from ReleaseNotes.txt</PackageReleaseNotes>
+		<Configurations>Debug;Release</Configurations>
+	</PropertyGroup>
+
+	<ItemGroup Label="Resources">
+		<Compile Update="**\Exceptions\ExceptionMessages.Designer.cs">
+			<DependentUpon>ExceptionMessages.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<EmbeddedResource Update="**\Exceptions\ExceptionMessages.resx">
+			<LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="**\Exceptions\ExceptionMessages.*.resx">
+			<DependentUpon>ExceptionMessages.resx</DependentUpon>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<Target Name="ReleaseNotes" BeforeTargets="GenerateNuspec">
+		<ReadLinesFromFile File="..\..\ReleaseNotes.txt">
+			<Output TaskParameter="Lines" ItemName="ReleaseNotesLines" />
+		</ReadLinesFromFile>
+		<PropertyGroup>
+			<PackageReleaseNotes>@(ReleaseNotesLines, '%0a')</PackageReleaseNotes>
+		</PropertyGroup>
+	</Target>
+
+	<ItemGroup Label="Package">
+		<Content Include="..\..\LICENSE" Link="LICENSE">
+			<Pack>true</Pack>
+			<PackagePath>\</PackagePath>
+		</Content>
+		<Content Include="..\..\ReleaseNotes.txt" Link="ReleaseNotes.txt">
+			<Pack>true</Pack>
+			<PackagePath>\</PackagePath>
+		</Content>
+		<None Remove="README.md" />
+		<Content Include="README.md">
+			<Pack>true</Pack>
+			<PackagePath>\</PackagePath>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Grammar\Literals\Dictionaries\" />
+	  <Folder Include="Grammar\Literals\Comprehensions\" />
+	  <Folder Include="Grammar\Literals\Generators\" />
+	  <Folder Include="Grammar\Patterns\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Grammar\Expressions\Literals\Exceptions\ExceptionMessages.resx">
+	    <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Grammar\Literals\Exceptions\ExceptionMessages.resx">
+	    <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+</Project>
