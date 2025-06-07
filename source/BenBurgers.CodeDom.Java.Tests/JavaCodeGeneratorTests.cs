@@ -87,7 +87,7 @@ namespace BenBurgers.CodeDom.Java.Tests
             where TCodeObject : CodeObject
         {
             var stringBuilder = new StringBuilder();
-            using var stringWriter = new StringWriter(stringBuilder);
+            using var stringWriter = new IndentedTextWriter(new StringWriter(stringBuilder));
             var generator = new JavaCodeGenerator();
             generatorAction(generator, codeObject, stringWriter, generatorOptions);
             stringWriter.Flush();

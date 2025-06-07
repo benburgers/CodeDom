@@ -74,18 +74,7 @@ namespace BenBurgers.CodeDom.Java.Compiler
         /// <inheritdoc />
         public void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
         {
-            if (e.Attributes.HasFlag(MemberAttributes.Private))
-            {
-                w.Write(Keywords.Private + " ");
-            }
-            if (e.Attributes.HasFlag(MemberAttributes.Public))
-            {
-                w.Write(Keywords.Public + " ");
-            }
-            if (e.Attributes.HasFlag(MemberAttributes.Final))
-            {
-                w.Write(Keywords.Final + " ");
-            }
+            WriteMemberAttributes(e.Attributes, w);
             if (e.IsInterface)
             {
                 w.Write(Keywords.Interface + " ");
@@ -95,7 +84,12 @@ namespace BenBurgers.CodeDom.Java.Compiler
                 w.Write(Keywords.Class + " ");
             }
             w.WriteLine($"{e.Name} {{");
-
+            IndentIncrease(w);
+            foreach (CodeTypeMember member in e.Members)
+            {
+                this.GenerateCodeFromTypeMember(member, w, o);
+            }
+            IndentDecrease(w);
             w.WriteLine("}");
         }
 
@@ -125,6 +119,38 @@ namespace BenBurgers.CodeDom.Java.Compiler
             if (!this.IsValidIdentifier(value))
             {
                 throw new ArgumentException("Invalid identifier", nameof(value));
+            }
+        }
+
+        private static void IndentDecrease(TextWriter w)
+        {
+            if (w is IndentedTextWriter iw)
+            {
+                iw.Indent--;
+            }
+        }
+
+        private static void IndentIncrease(TextWriter w)
+        {
+            if (w is IndentedTextWriter iw)
+            {
+                iw.Indent++;
+            }
+        }
+
+        private static void WriteMemberAttributes(MemberAttributes e, TextWriter w)
+        {
+            if (e.HasFlag(MemberAttributes.Private))
+            {
+                w.Write(Keywords.Private + " ");
+            }
+            if (e.HasFlag(MemberAttributes.Public))
+            {
+                w.Write(Keywords.Public + " ");
+            }
+            if (e.HasFlag(MemberAttributes.Final))
+            {
+                w.Write(Keywords.Final + " ");
             }
         }
 

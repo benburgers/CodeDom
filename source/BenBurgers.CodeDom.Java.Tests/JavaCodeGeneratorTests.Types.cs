@@ -8,24 +8,60 @@ public sealed partial class JavaCodeGeneratorTests
     {
         public Types()
         {
-            var type1 = new CodeTypeDeclaration("TestClass")
+            var typePublic = new CodeTypeDeclaration("TestClass")
             {
                 Attributes = MemberAttributes.Public
             };
-            this.Add(type1,
+            this.Add(typePublic,
 """
 public class TestClass {
 }
 
 """);
 
-            var type2 = new CodeTypeDeclaration("TestClass2")
+            var typePrivateFinal = new CodeTypeDeclaration("TestClass2")
             {
                 Attributes = MemberAttributes.Private | MemberAttributes.Final
             };
-            this.Add(type2,
+            this.Add(typePrivateFinal,
 """
 private final class TestClass2 {
+}
+
+""");
+
+            var typeField = new CodeTypeDeclaration("TestClass3")
+            {
+                Attributes = MemberAttributes.Public | MemberAttributes.Final
+            };
+            typeField.Members.Add(new CodeMemberField("int", "testFieldInt")
+            {
+                Attributes = MemberAttributes.Public
+            });
+            this.Add(typeField,
+"""
+public final class TestClass3 {
+    public int testFieldInt;
+}
+
+""");
+
+            var typeMethod = new CodeTypeDeclaration("TestClass4")
+            {
+                Attributes = MemberAttributes.Public
+            };
+            var method1 = new CodeMemberMethod
+            {
+                Attributes = MemberAttributes.Public,
+                Name = "testMethod",
+                ReturnType = new CodeTypeReference("int")
+            };
+            typeMethod.Members.Add(method1);
+            this.Add(typeMethod,
+            """
+public class TestClass4 {
+    public int testMethod() {
+    }
 }
 
 """);
