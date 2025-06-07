@@ -15,13 +15,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4F781944
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenBurgers.Python.Tests", "BenBurgers.Python.Tests\BenBurgers.Python.Tests.csproj", "{326EEF69-D86D-42AF-9838-44EA76A5D64D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{053A0429-3E10-4855-A069-1854F0BD21F0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Repository", "_Repository", "{053A0429-3E10-4855-A069-1854F0BD21F0}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
 		..\LICENSE = ..\LICENSE
 		..\README.md = ..\README.md
 		..\ReleaseNotes.txt = ..\ReleaseNotes.txt
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TypeScript", "TypeScript", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenBurgers.CodeDom.TypeScript", "BenBurgers.CodeDom.TypeScript\BenBurgers.CodeDom.TypeScript.csproj", "{8C1DB3B1-2860-4EC6-9C5B-5678C878C409}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution", "_Solution", "{6674177F-F7F1-4C2D-9639-907B3848CB60}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6050AEA2-5B0A-4B6C-930E-40790518EE6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenBurgers.CodeDom.TypeScript.Tests", "BenBurgers.CodeDom.TypeScript.Tests\BenBurgers.CodeDom.TypeScript.Tests.csproj", "{EA29B485-6C7F-4A18-B860-8AE47A671445}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +59,14 @@ Global
 		{326EEF69-D86D-42AF-9838-44EA76A5D64D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{326EEF69-D86D-42AF-9838-44EA76A5D64D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{326EEF69-D86D-42AF-9838-44EA76A5D64D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C1DB3B1-2860-4EC6-9C5B-5678C878C409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C1DB3B1-2860-4EC6-9C5B-5678C878C409}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C1DB3B1-2860-4EC6-9C5B-5678C878C409}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C1DB3B1-2860-4EC6-9C5B-5678C878C409}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA29B485-6C7F-4A18-B860-8AE47A671445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA29B485-6C7F-4A18-B860-8AE47A671445}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA29B485-6C7F-4A18-B860-8AE47A671445}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA29B485-6C7F-4A18-B860-8AE47A671445}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +77,9 @@ Global
 		{BE30BC1E-CB86-436C-8DEB-96969F7D761B} = {712E8F84-CB83-444E-840A-14FA7D7573C7}
 		{4F781944-4B0C-400F-BA7D-64733EDF6DEA} = {712E8F84-CB83-444E-840A-14FA7D7573C7}
 		{326EEF69-D86D-42AF-9838-44EA76A5D64D} = {4F781944-4B0C-400F-BA7D-64733EDF6DEA}
+		{8C1DB3B1-2860-4EC6-9C5B-5678C878C409} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{6050AEA2-5B0A-4B6C-930E-40790518EE6F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{EA29B485-6C7F-4A18-B860-8AE47A671445} = {6050AEA2-5B0A-4B6C-930E-40790518EE6F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {77BC80DC-4764-4512-8730-DC85A45F535E}

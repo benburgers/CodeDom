@@ -1,22 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup Label="Project Settings">
+	<PropertyGroup>
 		<TargetFrameworks>net8.0;net9.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<Title>Python CodeDom provider</Title>
+		<Title>TypeScript CodeDom provider</Title>
 		<Version>0.1.0</Version>
 		<Authors>benburgers</Authors>
 		<Company>Ben Burgers</Company>
 		<Product>Ben Burgers CodeDom</Product>
-		<Description>A Python CodeDom provider for parsing, generating and compiling Python code.</Description>
-		<Copyright>© 2022-2023 Ben Burgers and contributors.</Copyright>
+		<Description>A TypeScript CodeDom provider for parsing, generating and compiling TypeScript code.</Description>
+		<Copyright>© 2025 Ben Burgers and contributors.</Copyright>
 		<PackageProjectUrl>https://github.com/users/benburgers/projects/4</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/benburgers/CodeDom</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageTags>CodeDom;Parser;Generator;Python</PackageTags>
+		<PackageTags>CodeDom;Parser;Generator;TypeScript</PackageTags>
 		<PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<PackageReleaseNotes>Imported from ReleaseNotes.txt</PackageReleaseNotes>
@@ -25,9 +25,5 @@
 
 	<ItemGroup>
 		<PackageReference Include="System.CodeDom" Version="9.0.4" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\BenBurgers.Python\BenBurgers.Python.csproj" />
 	</ItemGroup>
 </Project>

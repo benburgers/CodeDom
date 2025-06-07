@@ -1,0 +1,26 @@
+<Project>
+	<Target Name="ReleaseNotes" BeforeTargets="GenerateNuspec" Condition="!$(MSBuildProjectName.EndsWith('.Tests'))">
+		<ReadLinesFromFile File="$(SolutionDir)\..\ReleaseNotes.txt">
+			<Output TaskParameter="Lines" ItemName="ReleaseNotesLines" />
+		</ReadLinesFromFile>
+		<PropertyGroup>
+			<PackageReleaseNotes>@(ReleaseNotesLines, '%0a')</PackageReleaseNotes>
+		</PropertyGroup>
+	</Target>
+
+	<ItemGroup Label="Package" Condition="!$(MSBuildProjectName.EndsWith('.Tests'))">
+		<Content Include="$(SolutionDir)\..\LICENSE" Link="LICENSE">
+			<Pack>true</Pack>
+			<PackagePath>\</PackagePath>
+		</Content>
+		<Content Include="$(SolutionDir)\..\ReleaseNotes.txt" Link="ReleaseNotes.txt">
+			<Pack>true</Pack>
+			<PackagePath>\</PackagePath>
+		</Content>
+		<None Remove="README.md" />
+		<Content Include="README.md">
+			<Pack>true</Pack>
+			<PackagePath>\</PackagePath>
+		</Content>
+	</ItemGroup>
+</Project>
