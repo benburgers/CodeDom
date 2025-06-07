@@ -14,6 +14,7 @@ public sealed partial class JavaCodeGeneratorTests
 """
 package Test;
 
+
 """);
         }
     }
