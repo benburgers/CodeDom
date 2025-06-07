@@ -28,6 +28,30 @@ namespace BenBurgers.CodeDom.Java.Tests
             Assert.Equal(expected, actual);
         }
 
+        [Theory(DisplayName = "Namespaces")]
+        [ClassData(typeof(Namespaces))]
+        public void GenerateCodeFromNamespaceTests(CodeNamespace ns, string expected)
+        {
+            var actual =
+                Generate(
+                    ns,
+                    new CodeGeneratorOptions(),
+                    (generator, obj, w, o) => generator.GenerateCodeFromNamespace(ns, w, o));
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory(DisplayName = "Types")]
+        [ClassData(typeof(Types))]
+        public void GenerateCodeFromTypeTests(CodeTypeDeclaration typeDeclaration, string expected)
+        {
+            var actual =
+                Generate(
+                    typeDeclaration,
+                    new CodeGeneratorOptions(),
+                    (generator, obj, w, o) => generator.GenerateCodeFromType(obj, w, o));
+            Assert.Equal(expected, actual);
+        }
+
         [Theory(DisplayName = "Is valid identifier")]
         [InlineData("@", false)]
         [InlineData("aA_", true)]
@@ -35,18 +59,6 @@ namespace BenBurgers.CodeDom.Java.Tests
         {
             var generator = new JavaCodeGenerator();
             var actual = generator.IsValidIdentifier(identifier);
-            Assert.Equal(expected, actual);
-        }
-
-        [Theory(DisplayName = "Namespaces")]
-        [ClassData(typeof(Namespaces))]
-        public void NamespaceTests(CodeNamespace ns, string expected)
-        {
-            var actual =
-                Generate(
-                    ns,
-                    new CodeGeneratorOptions(),
-                    (generator, obj, w, o) => generator.GenerateCodeFromNamespace(ns, w, o));
             Assert.Equal(expected, actual);
         }
 

@@ -55,6 +55,14 @@ namespace BenBurgers.CodeDom.Java.Compiler
         {
             w.WriteLine($"package {e.Name};");
             w.WriteLine();
+            foreach (CodeNamespaceImport import in e.Imports)
+            {
+                w.WriteLine($"import {import.Namespace};");
+            }
+            if (e.Imports.Count > 0)
+            {
+                w.WriteLine();
+            }
         }
 
         /// <inheritdoc />
@@ -66,7 +74,29 @@ namespace BenBurgers.CodeDom.Java.Compiler
         /// <inheritdoc />
         public void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
         {
-            throw new NotImplementedException();
+            if (e.Attributes.HasFlag(MemberAttributes.Private))
+            {
+                w.Write(Keywords.Private + " ");
+            }
+            if (e.Attributes.HasFlag(MemberAttributes.Public))
+            {
+                w.Write(Keywords.Public + " ");
+            }
+            if (e.Attributes.HasFlag(MemberAttributes.Final))
+            {
+                w.Write(Keywords.Final + " ");
+            }
+            if (e.IsInterface)
+            {
+                w.Write(Keywords.Interface + " ");
+            }
+            if (e.IsClass)
+            {
+                w.Write(Keywords.Class + " ");
+            }
+            w.WriteLine($"{e.Name} {{");
+
+            w.WriteLine("}");
         }
 
         /// <inheritdoc />

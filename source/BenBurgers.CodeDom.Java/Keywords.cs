@@ -2,6 +2,12 @@
 
 internal static class Keywords
 {
+    internal const string Class = "class";
+    internal const string Final = "final";
+    internal const string Interface = "interface";
+    internal const string Private = "private";
+    internal const string Public = "public";
+
     internal static readonly ISet<string> Set = new HashSet<string>
     {
         "abstract",
@@ -12,7 +18,7 @@ internal static class Keywords
         "case",
         "catch",
         "char",
-        "class",
+        Class,
         "continue",
         "const",
         "default",
@@ -22,7 +28,7 @@ internal static class Keywords
         "enum",
         "exports",
         "extends",
-        "final",
+        Final,
         "finally",
         "float",
         "for",
@@ -39,9 +45,9 @@ internal static class Keywords
         "native",
         "new",
         "package",
-        "private",
+        Private,
         "protected",
-        "public",
+        Public,
         "requires",
         "return",
         "short",

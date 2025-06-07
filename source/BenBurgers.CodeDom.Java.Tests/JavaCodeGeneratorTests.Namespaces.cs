@@ -16,6 +16,21 @@ package Test;
 
 
 """);
+
+            const string Namespace2Name = "Test2";
+            var namespace2 = new CodeNamespace(Namespace2Name);
+            namespace2.Imports.Add(new CodeNamespaceImport("org.test.one"));
+            namespace2.Imports.Add(new CodeNamespaceImport("org.test.two"));
+
+            this.Add(namespace2,
+"""
+package Test2;
+
+import org.test.one;
+import org.test.two;
+
+
+""");
         }
     }
 }
