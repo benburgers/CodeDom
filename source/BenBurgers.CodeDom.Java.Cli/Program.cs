@@ -1,9 +1,11 @@
 ﻿using BenBurgers.CodeDom.Java.Cli.Configuration;
+using BenBurgers.CodeDom.Java.Cli.Permutations;
 using BenBurgers.CodeDom.Java.Compiler;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.VisualBasic;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 
@@ -33,28 +35,60 @@ if (string.IsNullOrWhiteSpace(options.ProjectDirectory))
 {
     throw new Exception("Project directory is not set.");
 }
-if (Directory.Exists(options.ProjectDirectory))
+CreateDirectoryIfNotExists(options.ProjectDirectory);
+
+// Construct permutations tree
+var codeTypeDeclarations = new HashSet<CodeTypeDeclaration>();
+var accessModifier = new Permutation[] { new("Private", ctd => ctd.Attributes |= MemberAttributes.Private), new("Public", ctd => ctd.Attributes |= MemberAttributes.Public) };
+var openClosedModifier = new Permutation[] { new("Abstract", ctd => ctd.Attributes |= MemberAttributes.Abstract), new("Final", ctd => ctd.Attributes |= MemberAttributes.Final), new("Open", _ => { }) };
+var hasSuperClass = new Permutation[] { new("Super", ctd => ctd.BaseTypes.Add(new CodeTypeReference("Object"))), new("Orphan", _ => { }) };
+var fields = new Permutation[] {
+        new("MethodNone", _ => { }),
+        new("MethodAbstract", ctd =>
+        {
+            var method = new CodeMemberMethod { Attributes = MemberAttributes.Public | MemberAttributes.Abstract, Name = "MethodAbstract", ReturnType = new CodeTypeReference("void") };
+            ctd.Members.Add(method);
+        }),
+        new("MethodFinal", ctd =>
+        {
+            var method = new CodeMemberMethod { Attributes = MemberAttributes.Public | MemberAttributes.Final, Name = "MethodFinal", ReturnType = new CodeTypeReference("void") };
+            ctd.Members.Add(method);
+        })
+    };
+
+Permutation[] permutations =
+    [.. accessModifier.SelectMany(
+        am => openClosedModifier.SelectMany(
+            oc => hasSuperClass.SelectMany(
+                sc => fields.Select(
+                    f => new Permutation(am.Name + oc.Name + sc.Name + f.Name, ctd => { am.Apply(ctd); oc.Apply(ctd); sc.Apply(ctd); f.Apply(ctd); })))))];
+foreach (var permutation in permutations)
 {
-    Directory.Delete(options.ProjectDirectory, true);
-}
-if (!Directory.Exists(options.ProjectDirectory))
-{
-    logger.LogInformation("Project directory {ProjectDirectory} does not exist yet, creating...", options.ProjectDirectory);
-    Directory.CreateDirectory(options.ProjectDirectory);
+    var codeTypeDeclaration = new CodeTypeDeclaration(permutation.Name);
+    permutation.Apply(codeTypeDeclaration);
+    CreateFile(codeTypeDeclaration, options.ProjectDirectory);
 }
 
-const string TestClass1 = nameof(TestClass1);
-using var testClass1FileStream = File.OpenWrite(Path.Combine(options.ProjectDirectory, $"{TestClass1}.java"));
-using var testClass1StreamWriter = new IndentedTextWriter(new StreamWriter(testClass1FileStream));
-var testClass1 = new CodeTypeDeclaration("TestClass1")
+
+void CreateDirectoryIfNotExists(string directoryPath)
 {
-    Attributes = MemberAttributes.Public
-};
-testClass1.Comments.Add(new CodeCommentStatement("Test Class for Java", true));
-testClass1.Members.Add(new CodeMemberField("int", "test1"));
-testClass1.Members.Add(new CodeMemberField("string", "test2"));
-var testClass1Method1 = new CodeMemberMethod { Name = "test3", ReturnType = new CodeTypeReference("int") };
-testClass1.Members.Add(testClass1Method1);
-generator.GenerateCodeFromType(testClass1, testClass1StreamWriter, new CodeGeneratorOptions());
-testClass1StreamWriter.Flush();
-testClass1StreamWriter.Close();
+    if (!Directory.Exists(directoryPath))
+    {
+        logger.LogInformation("Directory {ProjectDirectory} does not exist yet, creating...", directoryPath);
+        Directory.CreateDirectory(options.ProjectDirectory);
+    }
+}
+
+void CreateFile(CodeTypeDeclaration codeTypeDeclaration, string directory)
+{
+    var path = Path.Combine(directory, codeTypeDeclaration.Name + ".java");
+    if (File.Exists(path))
+    {
+        File.Delete(path);
+    }
+    using var fileStream = File.OpenWrite(path);
+    using var indentedTextWriter = new IndentedTextWriter(new StreamWriter(fileStream));
+    generator.GenerateCodeFromType(codeTypeDeclaration, indentedTextWriter, new CodeGeneratorOptions());
+    indentedTextWriter.Flush();
+    indentedTextWriter.Close();
+}

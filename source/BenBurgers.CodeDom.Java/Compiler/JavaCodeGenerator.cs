@@ -104,7 +104,27 @@ namespace BenBurgers.CodeDom.Java.Compiler
             {
                 w.Write(Keywords.Class + " ");
             }
-            w.WriteLine($"{e.Name} {{");
+            w.Write(e.Name);
+            foreach (CodeTypeReference baseType in e.BaseTypes)
+            {
+                var type = Type.GetType(baseType.BaseType);
+                switch (type)
+                {
+                    case null:
+                        break;
+                    case { IsInterface: true }:
+                        {
+                            w.Write(Keywords.Implements + " ");
+                            break;
+                        }
+                    case { IsClass: true }:
+                        {
+                            w.Write(Keywords.Extends + " ");
+                            break;
+                        }
+                }
+            }
+            w.WriteLine(" {");
             IndentIncrease(w);
             foreach (CodeTypeMember member in e.Members)
             {
