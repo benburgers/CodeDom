@@ -41,7 +41,7 @@ CreateDirectoryIfNotExists(options.ProjectDirectory);
 var codeTypeDeclarations = new HashSet<CodeTypeDeclaration>();
 var accessModifier = new Permutation[] { new("Private", ctd => ctd.Attributes |= MemberAttributes.Private), new("Public", ctd => ctd.Attributes |= MemberAttributes.Public) };
 var openClosedModifier = new Permutation[] { new("Abstract", ctd => ctd.Attributes |= MemberAttributes.Abstract), new("Final", ctd => ctd.Attributes |= MemberAttributes.Final), new("Open", _ => { }) };
-var hasSuperClass = new Permutation[] { new("Super", ctd => ctd.BaseTypes.Add(new CodeTypeReference("Object"))), new("Orphan", _ => { }) };
+var hasSuperClass = new Permutation[] { new("Super", ctd => ctd.BaseTypes.Add(new CodeTypeReference("PublicOpenOrphanMethodAbstract"))), new("Orphan", _ => { }) };
 var fields = new Permutation[] {
         new("MethodNone", _ => { }),
         new("MethodAbstract", ctd =>

@@ -110,16 +110,15 @@ namespace BenBurgers.CodeDom.Java.Compiler
                 var type = Type.GetType(baseType.BaseType);
                 switch (type)
                 {
-                    case null:
-                        break;
                     case { IsInterface: true }:
                         {
-                            w.Write(Keywords.Implements + " ");
+                            w.Write($" {Keywords.Implements} {this.GetTypeOutput(baseType)}");
                             break;
                         }
+                    case null:
                     case { IsClass: true }:
                         {
-                            w.Write(Keywords.Extends + " ");
+                            w.Write($" {Keywords.Extends} {this.GetTypeOutput(baseType)}");
                             break;
                         }
                 }
