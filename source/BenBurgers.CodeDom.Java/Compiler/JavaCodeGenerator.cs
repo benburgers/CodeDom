@@ -47,17 +47,29 @@ namespace BenBurgers.CodeDom.Java.Compiler
         /// <inheritdoc />
         public void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
         {
-            throw new NotImplementedException();
+            switch (e)
+            {
+                case CodeArgumentReferenceExpression are:
+                    GenerateCodeFromArgumentReferenceExpression(are, w, o); break;
+                case CodeArrayCreateExpression ace:
+                    this.GenerateCodeFromArrayCreateExpression(ace, w, o); break;
+                case CodeArrayIndexerExpression aie:
+                    this.GenerateCodeFromArrayIndexerExpression(aie, w, o); break;
+                case CodeCastExpression ce:
+                    this.GenerateCodeFromCastExpression(ce, w, o); break;
+                case CodePrimitiveExpression pe:
+                    GenerateCodeFromPrimitiveExpression(pe, w, o); break;
+            }
         }
 
         /// <inheritdoc />
         public void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
         {
-            w.WriteLine($"package {e.Name};");
+            w.WriteLine($"{Keywords.Package} {e.Name};");
             w.WriteLine();
             foreach (CodeNamespaceImport import in e.Imports)
             {
-                w.WriteLine($"import {import.Namespace};");
+                w.WriteLine($"{Keywords.Import} {import.Namespace};");
             }
             if (e.Imports.Count > 0)
             {
@@ -68,12 +80,19 @@ namespace BenBurgers.CodeDom.Java.Compiler
         /// <inheritdoc />
         public void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
         {
-            throw new NotImplementedException();
+            switch (e)
+            {
+                case CodeAssignStatement @as:
+                    this.GenerateCodeFromAssignStatement(@as, w, o); break;
+                case CodeVariableDeclarationStatement vds:
+                    this.GenerateCodeFromVariableDeclarationStatement(vds, w, o); break;
+            }
         }
 
         /// <inheritdoc />
         public void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
         {
+            GenerateCodeFromCommentStatementCollection(e.Comments, w, o);
             WriteMemberAttributes(e.Attributes, w);
             if (e.IsInterface)
             {
@@ -96,7 +115,7 @@ namespace BenBurgers.CodeDom.Java.Compiler
         /// <inheritdoc />
         public string GetTypeOutput(CodeTypeReference type)
         {
-            throw new NotImplementedException();
+            return type.BaseType;
         }
 
         /// <inheritdoc />

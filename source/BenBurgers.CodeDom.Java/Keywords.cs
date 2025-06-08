@@ -2,15 +2,22 @@
 
 internal static class Keywords
 {
+    internal const string Abstract = "abstract";
     internal const string Class = "class";
     internal const string Final = "final";
+    internal const string Import = "import";
     internal const string Interface = "interface";
+    internal const string New = "new";
+    internal const string Package = "package";
     internal const string Private = "private";
+    internal const string Protected = "protected";
     internal const string Public = "public";
+    internal const string Return = "return";
+    internal const string Var = "var";
 
     internal static readonly ISet<string> Set = new HashSet<string>
     {
-        "abstract",
+        Abstract,
         "assert",
         "boolean",
         "break",
@@ -35,21 +42,21 @@ internal static class Keywords
         "goto",
         "if",
         "implements",
-        "import",
+        Import,
         "instanceof",
         "int",
         "instance",
-        "interface",
+        Interface,
         "long",
         "module",
         "native",
-        "new",
-        "package",
+        New,
+        Package,
         Private,
-        "protected",
+        Protected,
         Public,
         "requires",
-        "return",
+        Return,
         "short",
         "static",
         "strictfp",
@@ -61,7 +68,7 @@ internal static class Keywords
         "throws",
         "transient",
         "try",
-        "var",
+        Var,
         "void",
         "volatile",
         "while"

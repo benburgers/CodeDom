@@ -28,6 +28,18 @@ namespace BenBurgers.CodeDom.Java.Tests
             Assert.Equal(expected, actual);
         }
 
+        [Theory(DisplayName = "Expressions")]
+        [ClassData(typeof(Expressions))]
+        public void GenerateCodeFromExpressionTests(CodeExpression expression, string expected)
+        {
+            var actual =
+                Generate(
+                    expression,
+                    new CodeGeneratorOptions(),
+                    (generator, e, w, o) => generator.GenerateCodeFromExpression(expression, w, o));
+            Assert.Equal(expected, actual);
+        }
+
         [Theory(DisplayName = "Namespaces")]
         [ClassData(typeof(Namespaces))]
         public void GenerateCodeFromNamespaceTests(CodeNamespace ns, string expected)
@@ -37,6 +49,18 @@ namespace BenBurgers.CodeDom.Java.Tests
                     ns,
                     new CodeGeneratorOptions(),
                     (generator, obj, w, o) => generator.GenerateCodeFromNamespace(ns, w, o));
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory(DisplayName = "Statements")]
+        [ClassData(typeof(Statements))]
+        public void GenerateCodeFromStatementTests(CodeStatement statement, string expected)
+        {
+            var actual =
+                Generate(
+                    statement,
+                    new CodeGeneratorOptions(),
+                    (generator, obj, w, o) => generator.GenerateCodeFromStatement(statement, w, o));
             Assert.Equal(expected, actual);
         }
 

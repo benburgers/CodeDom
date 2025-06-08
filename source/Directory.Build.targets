@@ -8,6 +8,16 @@
 		</PropertyGroup>
 	</Target>
 
+	<ItemGroup Label="AppSettings">
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="appsettings.*.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<DependentUpon>appsettings.json</DependentUpon>
+		</None>
+	</ItemGroup>
+
 	<ItemGroup Label="Package" Condition="!$(MSBuildProjectName.EndsWith('.Tests'))">
 		<Content Include="$(SolutionDir)\..\LICENSE" Link="LICENSE">
 			<Pack>true</Pack>
