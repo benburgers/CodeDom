@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "BenBurgers.CodeDom.Java.Cli": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

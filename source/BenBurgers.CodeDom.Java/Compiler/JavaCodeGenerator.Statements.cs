@@ -23,19 +23,16 @@ public sealed partial class JavaCodeGenerator
         }
         IndentDecrease(w);
         w.Write("}");
-        if (e.CatchClauses.Count > 0)
+        foreach (CodeCatchClause c in e.CatchClauses)
         {
-            foreach (CodeCatchClause c in e.CatchClauses)
+            w.WriteLine($" {Keywords.Catch} ({this.GetTypeOutput(c.CatchExceptionType)} {c.LocalName}) {{");
+            IndentIncrease(w);
+            foreach (CodeStatement catchStatement in c.Statements)
             {
-                w.WriteLine($" {Keywords.Catch} ({this.GetTypeOutput(c.CatchExceptionType)} {c.LocalName}) {{");
-                IndentIncrease(w);
-                foreach (CodeStatement catchStatement in c.Statements)
-                {
-                    this.GenerateCodeFromStatement(catchStatement, w, o);
-                }
-                IndentDecrease(w);
-                w.Write("}");
+                this.GenerateCodeFromStatement(catchStatement, w, o);
             }
+            IndentDecrease(w);
+            w.Write("}");
         }
         if (e.FinallyStatements.Count > 0)
         {
@@ -49,11 +46,6 @@ public sealed partial class JavaCodeGenerator
             w.Write("}");
         }
         w.WriteLine();
-    }
-
-    private void GenerateCodeFromCatchClause(CodeCatchClause e, TextWriter w, CodeGeneratorOptions o)
-    {
-
     }
 
     private void GenerateCodeFromVariableDeclarationStatement(CodeVariableDeclarationStatement e, TextWriter w, CodeGeneratorOptions o)
