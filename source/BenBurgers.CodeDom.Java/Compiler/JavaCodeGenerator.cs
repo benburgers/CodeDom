@@ -84,6 +84,8 @@ namespace BenBurgers.CodeDom.Java.Compiler
             {
                 case CodeAssignStatement @as:
                     this.GenerateCodeFromAssignStatement(@as, w, o); break;
+                case CodeTryCatchFinallyStatement tcfs:
+                    this.GenerateCodeFromTryCatchFinallyStatement(tcfs, w, o); break;
                 case CodeVariableDeclarationStatement vds:
                     this.GenerateCodeFromVariableDeclarationStatement(vds, w, o); break;
             }
@@ -159,6 +161,7 @@ namespace BenBurgers.CodeDom.Java.Compiler
 
         private static void WriteMemberAttributes(MemberAttributes e, TextWriter w)
         {
+            // Access Modifiers
             if (e.HasFlag(MemberAttributes.Private))
             {
                 w.Write(Keywords.Private + " ");
@@ -166,6 +169,12 @@ namespace BenBurgers.CodeDom.Java.Compiler
             if (e.HasFlag(MemberAttributes.Public))
             {
                 w.Write(Keywords.Public + " ");
+            }
+
+            // Inheritance
+            if (e.HasFlag(MemberAttributes.Abstract))
+            {
+                w.Write(Keywords.Abstract + " ");
             }
             if (e.HasFlag(MemberAttributes.Final))
             {

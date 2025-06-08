@@ -3,8 +3,10 @@
 internal static class Keywords
 {
     internal const string Abstract = "abstract";
+    internal const string Catch = "catch";
     internal const string Class = "class";
     internal const string Final = "final";
+    internal const string Finally = "finally";
     internal const string Import = "import";
     internal const string Interface = "interface";
     internal const string New = "new";
@@ -13,6 +15,7 @@ internal static class Keywords
     internal const string Protected = "protected";
     internal const string Public = "public";
     internal const string Return = "return";
+    internal const string Try = "try";
     internal const string Var = "var";
 
     internal static readonly ISet<string> Set = new HashSet<string>
@@ -23,7 +26,7 @@ internal static class Keywords
         "break",
         "byte",
         "case",
-        "catch",
+        Catch,
         "char",
         Class,
         "continue",
@@ -36,7 +39,7 @@ internal static class Keywords
         "exports",
         "extends",
         Final,
-        "finally",
+        Finally,
         "float",
         "for",
         "goto",
@@ -67,7 +70,7 @@ internal static class Keywords
         "throw",
         "throws",
         "transient",
-        "try",
+        Try,
         Var,
         "void",
         "volatile",
