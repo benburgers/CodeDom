@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.VisualBasic;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 
@@ -56,6 +55,7 @@ var fields = new Permutation[] {
         })
     };
 
+logger.LogInformation("Generating permutations of Java classes");
 Permutation[] permutations =
     [.. accessModifier.SelectMany(
         am => openClosedModifier.SelectMany(
@@ -64,9 +64,13 @@ Permutation[] permutations =
                     f => new Permutation(am.Name + oc.Name + sc.Name + f.Name, ctd => { am.Apply(ctd); oc.Apply(ctd); sc.Apply(ctd); f.Apply(ctd); })))))];
 foreach (var permutation in permutations)
 {
+    var codeCompileUnit = new CodeCompileUnit();
+    var codeNamespace = new CodeNamespace(options.Package);
     var codeTypeDeclaration = new CodeTypeDeclaration(permutation.Name);
     permutation.Apply(codeTypeDeclaration);
-    CreateFile(codeTypeDeclaration, options.ProjectDirectory);
+    codeNamespace.Types.Add(codeTypeDeclaration);
+    codeCompileUnit.Namespaces.Add(codeNamespace);
+    CreateFile(codeCompileUnit, options.ProjectDirectory);
 }
 
 
@@ -79,8 +83,10 @@ void CreateDirectoryIfNotExists(string directoryPath)
     }
 }
 
-void CreateFile(CodeTypeDeclaration codeTypeDeclaration, string directory)
+void CreateFile(CodeCompileUnit codeCompileUnit, string directory)
 {
+    var codeNamespace = codeCompileUnit.Namespaces[0];
+    var codeTypeDeclaration = codeNamespace.Types[0];
     var path = Path.Combine(directory, codeTypeDeclaration.Name + ".java");
     if (File.Exists(path))
     {
@@ -88,7 +94,7 @@ void CreateFile(CodeTypeDeclaration codeTypeDeclaration, string directory)
     }
     using var fileStream = File.OpenWrite(path);
     using var indentedTextWriter = new IndentedTextWriter(new StreamWriter(fileStream));
-    generator.GenerateCodeFromType(codeTypeDeclaration, indentedTextWriter, new CodeGeneratorOptions());
+    generator.GenerateCodeFromCompileUnit(codeCompileUnit, indentedTextWriter, new CodeGeneratorOptions());
     indentedTextWriter.Flush();
     indentedTextWriter.Close();
 }

@@ -75,6 +75,10 @@ namespace BenBurgers.CodeDom.Java.Compiler
             {
                 w.WriteLine();
             }
+            foreach (CodeTypeDeclaration typeDeclaration in e.Types)
+            {
+                this.GenerateCodeFromType(typeDeclaration, w, o);
+            }
         }
 
         /// <inheritdoc />
