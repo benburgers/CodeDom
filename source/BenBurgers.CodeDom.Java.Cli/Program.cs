@@ -21,7 +21,11 @@ var configuration =
         .Build();
 var serviceProvider =
     new ServiceCollection()
-        .AddLogging()
+        .AddLogging(builder =>
+        {
+            builder.AddConsole();
+            builder.AddConfiguration(configuration.GetSection("Logging"));
+        })
         .Configure<CodeDomJavaCliOptions>(configuration.GetSection("BenBurgers:CodeDom:Java:Cli"))
         .AddSingleton<ICodeGenerator, JavaCodeGenerator>()
         .BuildServiceProvider();
