@@ -29,11 +29,22 @@ public sealed partial class JavaCodeGenerator
 
     private void GenerateCodeFromMemberMethod(CodeMemberMethod e, TextWriter w, CodeGeneratorOptions o)
     {
+        // Method comments / JavaDoc
         GenerateCodeFromCommentStatementCollection(e.Comments, w, o);
+
+        // Method signature
         WriteMemberAttributes(e.Attributes, w);
         w.Write($"{e.ReturnType.BaseType} {e.Name}(");
         w.Write(string.Join(", ", e.Parameters.Cast<CodeParameterDeclarationExpression>().Select(p => $"{this.GetTypeOutput(p.Type)} {p.Name}")));
-        w.WriteLine(") {");
+        w.Write(')');
+        if (e.Attributes.HasFlag(MemberAttributes.Abstract))
+        {
+            w.WriteLine(";");
+            return;
+        }
+
+        // Method body
+        w.WriteLine(" {");
         foreach (CodeStatement statement in e.Statements)
         {
             this.GenerateCodeFromStatement(statement, w, o);

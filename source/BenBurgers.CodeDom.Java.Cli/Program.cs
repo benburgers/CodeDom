@@ -23,8 +23,8 @@ var serviceProvider =
     new ServiceCollection()
         .AddLogging(builder =>
         {
-            builder.AddConsole();
             builder.AddConfiguration(configuration.GetSection("Logging"));
+            builder.AddConsole();
         })
         .Configure<CodeDomJavaCliOptions>(configuration.GetSection("BenBurgers:CodeDom:Java:Cli"))
         .AddSingleton<ICodeGenerator, JavaCodeGenerator>()
@@ -45,7 +45,7 @@ var codeTypeDeclarations = new HashSet<CodeTypeDeclaration>();
 var accessModifier = new Permutation[] { new("Private", ctd => ctd.Attributes = MemberAttributes.Private), new("Public", ctd => ctd.Attributes = MemberAttributes.Public) };
 var openClosedModifier = new Permutation[] { new("Abstract", ctd => ctd.Attributes |= MemberAttributes.Abstract), new("Final", ctd => ctd.Attributes |= MemberAttributes.Final), new("Open", _ => { }) };
 var hasSuperClass = new Permutation[] { new("Super", ctd => ctd.BaseTypes.Add(new CodeTypeReference("PublicOpenOrphanMethodAbstract"))), new("Orphan", _ => { }) };
-var fields = new Permutation[] {
+var members = new Permutation[] {
         new("MethodNone", _ => { }),
         new("MethodAbstract", ctd =>
         {
@@ -64,7 +64,7 @@ Permutation[] permutations =
     [.. accessModifier.SelectMany(
         am => openClosedModifier.SelectMany(
             oc => hasSuperClass.SelectMany(
-                sc => fields.Select(
+                sc => members.Select(
                     f => new Permutation(am.Name + oc.Name + sc.Name + f.Name, ctd => { am.Apply(ctd); oc.Apply(ctd); sc.Apply(ctd); f.Apply(ctd); })))))];
 foreach (var permutation in permutations)
 {
