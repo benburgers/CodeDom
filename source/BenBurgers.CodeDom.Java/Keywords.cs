@@ -17,6 +17,8 @@ internal static class Keywords
     internal const string Protected = "protected";
     internal const string Public = "public";
     internal const string Return = "return";
+    internal const string Static = "static";
+    internal const string This = "this";
     internal const string Try = "try";
     internal const string Var = "var";
 
@@ -63,12 +65,12 @@ internal static class Keywords
         "requires",
         Return,
         "short",
-        "static",
+        Static,
         "strictfp",
         "super",
         "switch",
         "synchronized",
-        "this",
+        This,
         "throw",
         "throws",
         "transient",

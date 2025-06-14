@@ -45,10 +45,12 @@ public sealed partial class JavaCodeGenerator
 
         // Method body
         w.WriteLine(" {");
+        IndentIncrease(w);
         foreach (CodeStatement statement in e.Statements)
         {
             this.GenerateCodeFromStatement(statement, w, o);
         }
-        w.WriteLine("}");
+        IndentDecrease(w);
+        w.WriteLine('}');
     }
 }

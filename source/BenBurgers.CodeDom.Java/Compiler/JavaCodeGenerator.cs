@@ -1,5 +1,6 @@
 ﻿using System.CodeDom;
 using System.CodeDom.Compiler;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace BenBurgers.CodeDom.Java.Compiler
@@ -57,8 +58,12 @@ namespace BenBurgers.CodeDom.Java.Compiler
                     this.GenerateCodeFromArrayIndexerExpression(aie, w, o); break;
                 case CodeCastExpression ce:
                     this.GenerateCodeFromCastExpression(ce, w, o); break;
+                case CodeFieldReferenceExpression fre:
+                    this.GenerateCodeFromFieldReferenceExpression(fre, w, o); break;
                 case CodePrimitiveExpression pe:
                     GenerateCodeFromPrimitiveExpression(pe, w, o); break;
+                case CodeThisReferenceExpression:
+                    w.Write(Keywords.This); break;
             }
         }
 
@@ -99,7 +104,7 @@ namespace BenBurgers.CodeDom.Java.Compiler
         public void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
         {
             GenerateCodeFromCommentStatementCollection(e.Comments, w, o);
-            WriteMemberAttributes(e.Attributes, w);
+            WriteTypeAttributes(e.TypeAttributes, w);
             if (e.IsInterface)
             {
                 w.Write(Keywords.Interface + " ");
@@ -202,6 +207,38 @@ namespace BenBurgers.CodeDom.Java.Compiler
             if (e.HasFlag(MemberAttributes.Final))
             {
                 w.Write(Keywords.Final + " ");
+            }
+            if (e.HasFlag(MemberAttributes.Static))
+            {
+                w.Write(Keywords.Static + " ");
+
+            }
+        }
+
+        private static void WriteTypeAttributes(TypeAttributes e, TextWriter w)
+        {
+            // Access Modifiers
+            if ((e & TypeAttributes.VisibilityMask) == TypeAttributes.NotPublic)
+            {
+                w.Write(Keywords.Private + " ");
+            }
+            if ((e & TypeAttributes.VisibilityMask) == TypeAttributes.Public)
+            {
+                w.Write(Keywords.Public + " ");
+            }
+
+            // Inheritance
+            if (e.HasFlag(TypeAttributes.Abstract) && !e.HasFlag(TypeAttributes.Sealed))
+            {
+                w.Write(Keywords.Abstract + " ");
+            }
+            if (e.HasFlag(TypeAttributes.Sealed) && !e.HasFlag(TypeAttributes.Abstract))
+            {
+                w.Write(Keywords.Final + " ");
+            }
+            if (e.HasFlag(TypeAttributes.Abstract) && e.HasFlag(TypeAttributes.Sealed))
+            {
+                w.Write(Keywords.Static + " ");
             }
         }
 

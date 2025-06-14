@@ -57,6 +57,12 @@ public sealed partial class JavaCodeGenerator
         this.GenerateCodeFromExpression(e.Expression, w, o);
     }
 
+    private void GenerateCodeFromFieldReferenceExpression(CodeFieldReferenceExpression e, TextWriter w, CodeGeneratorOptions o)
+    {
+        this.GenerateCodeFromExpression(e.TargetObject, w, o);
+        w.Write($".{e.FieldName}");
+    }
+
     private static void GenerateCodeFromPrimitiveExpression(CodePrimitiveExpression e, TextWriter w, CodeGeneratorOptions o)
     {
         w.Write(e.Value switch
